@@ -7,6 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="MediatR" Version="12.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.5">
       <PrivateAssets>all</PrivateAssets>
@@ -22,6 +25,7 @@
   <ItemGroup>
     <ProjectReference Include="..\TestApp_Money.DataAccess.MsSql\TestApp_Money.DataAccess.MsSql.csproj" />
     <ProjectReference Include="..\TestApp_Money.Entites\TestApp_Money.Entites.csproj" />
+    <ProjectReference Include="..\TestApp_Money.UseCases\TestApp_Money.UseCases.csproj" />
   </ItemGroup>
 
 </Project>

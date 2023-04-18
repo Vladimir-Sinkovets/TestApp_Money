@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using TestApp_Money.DataAccess.MsSql;
 using TestApp_Money.Entites.Models;
 using TestApp_Money.Infrastructure.Interfaces.DataAccessInterfaces;
+using TestApp_Money.UseCases;
+using TestApp_Money.UseCases.Common;
 
 namespace TestApp_Money.Web
 {
@@ -13,6 +15,7 @@ namespace TestApp_Money.Web
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddControllersWithViews();
+            builder.Services.AddUseCases();
 
             string connection = builder.Configuration.GetConnectionString("DefaultConnection")!;
 
@@ -26,7 +29,10 @@ namespace TestApp_Money.Web
 
             builder.Services.AddTransient<IDbContext, ApplicationDbContext>();
 
+
             var app = builder.Build();
+
+
 
             if (!app.Environment.IsDevelopment())
             {
