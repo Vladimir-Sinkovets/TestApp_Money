@@ -23,7 +23,7 @@ namespace TestApp_Money.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register(RegisterViewModel model)
+        public async Task<IActionResult> RegisterAsync(RegisterViewModel model)
         {
             var user = new User()
             {
@@ -31,9 +31,15 @@ namespace TestApp_Money.Web.Controllers
                 UserName = model.Name
             };
 
-            var result = _userManager.CreateAsync(user, model.Password);
+            var result = await _userManager.CreateAsync(user, model.Password);
 
-            return RedirectToActionPermanent("Index", "Home");
+            if (result.Succeeded)
+            {
+                await _signInManager.SignInAsync(user, isPersistent: true);
+                return RedirectToActionPermanent("Index", "Home");
+            }
+
+            return View(model);
         }
 
         [HttpGet]
@@ -43,15 +49,29 @@ namespace TestApp_Money.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(LoginViewModel model)
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
-            _signInManager.PasswordSignInAsync(
+            var result = await _signInManager.PasswordSignInAsync(
                 model.Name,
                 model.Password,
                 isPersistent: true,
                 lockoutOnFailure: false);
 
-            return RedirectToActionPermanent("Index", "Home");
+            if (result.Succeeded)
+            {
+                return RedirectToActionPermanent("Index", "Home");
+            }
+
+            return View(model);
         }
+        
+        [HttpGet]
+        public IActionResult Logout()
+        {
+            _signInManager.SignOutAsync();
+
+            return RedirectToActionPermanent("Login", "Account");
+        }
+
     }
 }
