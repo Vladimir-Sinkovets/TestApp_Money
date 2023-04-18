@@ -5,6 +5,7 @@ using TestApp_Money.Entites.Models;
 using TestApp_Money.Infrastructure.Interfaces.DataAccessInterfaces;
 using TestApp_Money.UseCases;
 using TestApp_Money.UseCases.Common;
+using TestApp_Money.Web.Command.MapperProfiles;
 
 namespace TestApp_Money.Web
 {
@@ -29,6 +30,9 @@ namespace TestApp_Money.Web
 
             builder.Services.AddTransient<IDbContext, ApplicationDbContext>();
 
+            builder.Services.AddAutoMapper(
+                typeof(CategoryMapperProfile),
+                typeof(MapperProfile));
 
             var app = builder.Build();
 

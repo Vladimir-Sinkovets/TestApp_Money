@@ -10,13 +10,9 @@ using TestApp_Money.Web.Models;
 namespace TestApp_Money.Web.Controllers
 {
     [Authorize]
-    public class RecordController : Controller
+    public class RecordController : BasicController
     {
         private IMediator _mediator;
-
-        private string UserId => !User.Identity.IsAuthenticated
-            ? string.Empty
-            : User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
         public RecordController(IMediator mediator)
         {

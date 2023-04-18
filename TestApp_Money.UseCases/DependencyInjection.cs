@@ -15,8 +15,6 @@ namespace TestApp_Money.UseCases
                 config.RegisterServicesFromAssembly(Assembly.GetAssembly(typeof(CreateRecordCommand)));
             });
 
-            services.AddAutoMapper(typeof(MapperProfile));
-
             return services;
         }
     }
