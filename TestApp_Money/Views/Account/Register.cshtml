@@ -1,0 +1,19 @@
+﻿@model RegisterViewModel
+
+<form asp-action="Register" asp-controller="Account" method="post">
+    <p>
+        <label>Email</label>
+        <input asp-for="Email"/>
+    </p>
+    <p>
+        <label>Name</label>
+        <input asp-for="Name"/>
+    </p>
+    <p>
+        <label>Password</label>
+        <input asp-for="Password"/>
+    </p>
+    <p>
+        <input type="submit"/>
+    </p>
+</form>

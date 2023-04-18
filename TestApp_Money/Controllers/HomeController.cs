@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using TestApp_Money.Models;
+using TestApp_Money.Web.Models;
 
 namespace TestApp_Money.Web.Controllers
 {
