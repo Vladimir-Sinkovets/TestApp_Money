@@ -7,6 +7,8 @@ namespace TestApp_Money.Infrastructure.Interfaces.DataAccessInterfaces
     {
         DbSet<Record> Records { get; set; }
         DbSet<Category> Categories { get; set; }
+        DbSet<User> Users { get; set; }
+
         void SaveChanges();
         Task SaveChangesAsync(CancellationToken token);
     }

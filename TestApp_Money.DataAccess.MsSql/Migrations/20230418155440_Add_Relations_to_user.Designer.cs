@@ -12,7 +12,7 @@ using TestApp_Money.DataAccess.MsSql;
 namespace TestApp_Money.DataAccess.MsSql.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230418114055_Add_Relations_to_user")]
+    [Migration("20230418155440_Add_Relations_to_user")]
     partial class Add_Relations_to_user
     {
         /// <inheritdoc />
