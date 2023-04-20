@@ -6,7 +6,7 @@ using System.Collections;
 using System.Security.Claims;
 using TestApp_Money.UseCases.Features.Categories.Queries.GetAllCategoriesForUser;
 using TestApp_Money.UseCases.Features.Records.Commands.CreateRecord;
-using TestApp_Money.UseCases.Features.Records.Queries.GetRecordsByPages;
+using TestApp_Money.UseCases.Features.Records.Queries.GetRecordById;
 using TestApp_Money.Web.Models;
 
 namespace TestApp_Money.Web.Controllers
@@ -24,30 +24,23 @@ namespace TestApp_Money.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ListAsync(int page)
+        public async Task<IActionResult> Update(string id)
         {
-            var getRecordListQuery = new GetRecordsByPagesQuery()
+            var getRecordByIdCommand = new GetRecordByIdCommand()
             {
-                ItemsPerPage = 15,
-                PageNumber = page,
+                Id = Guid.Parse(id),
                 UserId = UserId,
             };
 
-            var listDto = (await _mediator.Send(getRecordListQuery))
-                .OrderBy(r => r.CreatedDate)
-                .ToList();
+            var record = await _mediator.Send(getRecordByIdCommand);
 
-            var viewModel = new RecordListViewModel()
-            {
-                Records = _mapper.Map<List<RecordViewModel>>(listDto),
-            };
-
+            var viewModel = _mapper.Map<UpdateRecordViewModel>(record);
 
             return View(viewModel);
         }
 
         [HttpPost]
-        public IActionResult Add(AddRecordViewModel model)
+        public async Task<IActionResult> Add(AddRecordViewModel model)
         {
             var createRecordCommand = new CreateRecordCommand()
             {
@@ -58,7 +51,7 @@ namespace TestApp_Money.Web.Controllers
                 Value = model.Value,
             };
 
-            _mediator.Send(createRecordCommand);
+            await _mediator.Send(createRecordCommand);
 
             return RedirectToAction("Index", "Home");
         }

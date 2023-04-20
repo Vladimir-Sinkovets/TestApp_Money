@@ -8,7 +8,7 @@ namespace TestApp_Money.Web.Common.MapperProfiles
     {
         public RecordMapperProfile()
         {
-            CreateMap<RecordDto, RecordViewModel>()
+            CreateMap<RecordListItem, RecordViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.CreatedDate, opt => opt.MapFrom(src => src.CreatedDate))

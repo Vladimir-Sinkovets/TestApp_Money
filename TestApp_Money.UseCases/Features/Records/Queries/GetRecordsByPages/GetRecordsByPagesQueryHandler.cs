@@ -5,7 +5,7 @@ using TestApp_Money.Infrastructure.Interfaces.DataAccessInterfaces;
 
 namespace TestApp_Money.UseCases.Features.Records.Queries.GetRecordsByPages
 {
-    public class GetRecordsByPagesQueryHandler : IRequestHandler<GetRecordsByPagesQuery, IEnumerable<RecordDto>>
+    public class GetRecordsByPagesQueryHandler : IRequestHandler<GetRecordsByPagesQuery, IEnumerable<RecordListItem>>
     {
         private IDbContext _context;
         private IMapper _mapper;
@@ -16,7 +16,7 @@ namespace TestApp_Money.UseCases.Features.Records.Queries.GetRecordsByPages
             _mapper = mapper;
         }
 
-        public Task<IEnumerable<RecordDto>> Handle(GetRecordsByPagesQuery request, CancellationToken cancellationToken)
+        public Task<IEnumerable<RecordListItem>> Handle(GetRecordsByPagesQuery request, CancellationToken cancellationToken)
         {
             var records = _context.Records
                 .Include(r => r.Category)
@@ -24,7 +24,7 @@ namespace TestApp_Money.UseCases.Features.Records.Queries.GetRecordsByPages
                 .Skip((request.ItemsPerPage - 1) * request.PageNumber)
                 .Take(request.ItemsPerPage);
 
-            var resultList = _mapper.Map<List<RecordDto>>(records);
+            var resultList = _mapper.Map<List<RecordListItem>>(records);
 
             return Task.FromResult(resultList.AsEnumerable());
         }
