@@ -7,6 +7,6 @@
         public DateTime CreatedDate { get; set; }
         public string Category { get; set; }
         public double Value { get; set; }
-        public IList<string> AllCategories { get; set; }
+        public IList<string> AllCategories { get; set; } = new List<string>();
     }
 }

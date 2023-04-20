@@ -2,10 +2,9 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections;
-using System.Security.Claims;
 using TestApp_Money.UseCases.Features.Categories.Queries.GetAllCategoriesForUser;
 using TestApp_Money.UseCases.Features.Records.Commands.CreateRecord;
+using TestApp_Money.UseCases.Features.Records.Commands.UpdateRecord;
 using TestApp_Money.UseCases.Features.Records.Queries.GetRecordById;
 using TestApp_Money.UseCases.Features.Records.Queries.GetRecordsByPages;
 using TestApp_Money.Web.Models;
@@ -60,7 +59,29 @@ namespace TestApp_Money.Web.Controllers
 
             var viewModel = _mapper.Map<UpdateRecordViewModel>(record);
 
+            viewModel.AllCategories = await GetAllCategoriesAsync();
+
             return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(UpdateRecordViewModel model)
+        {
+            var updateRecordCommand = new UpdateRecordCommand()
+            {
+                Description = model.Description,
+                CreatedDate = model.CreatedDate,
+                Category = model.Category,
+                Value = model.Value,
+                Id = model.Id,
+                UserId = UserId,
+            };
+
+            await _mediator.Send(updateRecordCommand);
+
+            model.AllCategories = await GetAllCategoriesAsync();
+
+            return View(model);
         }
 
         [HttpPost]

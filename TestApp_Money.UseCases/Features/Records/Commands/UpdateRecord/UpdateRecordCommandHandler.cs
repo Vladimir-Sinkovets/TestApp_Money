@@ -29,6 +29,8 @@ namespace TestApp_Money.UseCases.Features.Records.Commands.UpdateRecord
             recordEntity.Value = request.Value;
             recordEntity.Category = category;
 
+            _context.SaveChanges();
+
             return Task.FromResult(recordEntity.Id);
         }
     }

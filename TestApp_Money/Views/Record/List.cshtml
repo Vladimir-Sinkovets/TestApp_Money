@@ -2,12 +2,15 @@
 
 <div>
     <table class="table table-striped">
-    <tr>
-        <td>Категория</td>
-        <td>Значение</td>
-        <td>Дата</td>
-        <td>Комментарий</td>
-    </tr>
+    <thead>
+        <tr>
+            <td>Категория</td>
+            <td>Значение</td>
+            <td>Дата</td>
+            <td>Комментарий</td>
+            <td> </td>
+        </tr>
+    </thead>
     @foreach (var record in Model.Records)
     {
     <tr>
@@ -16,7 +19,7 @@
         <td>@record.CreatedDate</td>
         <td>@record.Description</td>
         <td>
-            <a asp-controller="Record" asp-action="Update">
+            <a asp-controller="Record" asp-action="Update" asp-route-id="@record.Id">
                 Update
             </a>
         </td>
