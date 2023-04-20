@@ -5,7 +5,7 @@ using TestApp_Money.Entites.Models;
 using TestApp_Money.Infrastructure.Interfaces.DataAccessInterfaces;
 using TestApp_Money.UseCases;
 using TestApp_Money.UseCases.Common;
-using TestApp_Money.Web.Command.MapperProfiles;
+using TestApp_Money.Web.Common.MapperProfiles;
 
 namespace TestApp_Money.Web
 {

@@ -1,10 +1,12 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections;
 using System.Security.Claims;
 using TestApp_Money.UseCases.Features.Categories.Queries.GetAllCategoriesForUser;
 using TestApp_Money.UseCases.Features.Records.Commands.CreateRecord;
+using TestApp_Money.UseCases.Features.Records.Queries.GetRecordsByPages;
 using TestApp_Money.Web.Models;
 
 namespace TestApp_Money.Web.Controllers
@@ -13,10 +15,35 @@ namespace TestApp_Money.Web.Controllers
     public class RecordController : BasicController
     {
         private IMediator _mediator;
+        private IMapper _mapper;
 
-        public RecordController(IMediator mediator)
+        public RecordController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
+            _mapper = mapper;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ListAsync(int page)
+        {
+            var getRecordListQuery = new GetRecordsByPagesQuery()
+            {
+                ItemsPerPage = 15,
+                PageNumber = page,
+                UserId = UserId,
+            };
+
+            var listDto = (await _mediator.Send(getRecordListQuery))
+                .OrderBy(r => r.CreatedDate)
+                .ToList();
+
+            var viewModel = new RecordListViewModel()
+            {
+                Records = _mapper.Map<List<RecordViewModel>>(listDto),
+            };
+
+
+            return View(viewModel);
         }
 
         [HttpPost]

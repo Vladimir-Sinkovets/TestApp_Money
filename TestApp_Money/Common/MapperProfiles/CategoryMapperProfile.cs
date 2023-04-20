@@ -2,7 +2,7 @@
 using TestApp_Money.UseCases.Features.Categories.Queries.GetAllCategoriesForUser;
 using TestApp_Money.Web.Models;
 
-namespace TestApp_Money.Web.Command.MapperProfiles
+namespace TestApp_Money.Web.Common.MapperProfiles
 {
     public class CategoryMapperProfile : Profile
     {
