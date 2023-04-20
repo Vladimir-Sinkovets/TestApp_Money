@@ -1,0 +1,23 @@
+﻿@model UpdateRecordViewModel
+
+<form asp-action="Update" asp-controller="Record" method="post">
+    <p>
+        <input asp-for="Description" type="text"/>
+    </p>
+    <p>
+        <input asp-for="CreatedDate" type="date"/>
+    </p>
+    <p>
+        <select asp-for="Category">
+            @for (int i = 0; i < Model.AllCategories.Count; i++)
+            {
+                <option value="@Model.AllCategories[i]">@Model.AllCategories[i]</option>
+            }
+        </select>
+    </p>
+    <input asp-for="Value" type="number"/>
+
+    <input hidden asp-for="Id"/>
+
+    <input type="submit"/>
+</form>

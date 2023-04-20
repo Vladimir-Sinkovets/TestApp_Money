@@ -1,10 +1,11 @@
-﻿using TestApp_Money.Entites.Models;
+﻿using MediatR;
 
-namespace TestApp_Money.UseCases.Features.Records.Queries.GetRecordsByPages
+namespace TestApp_Money.UseCases.Features.Records.Commands.UpdateRecord
 {
-    public class RecordDto
+    public class UpdateRecordCommand : IRequest<Guid>
     {
         public Guid Id { get; set; }
+        public string UserId { get; set; }
         public string Description { get; set; }
         public DateTime CreatedDate { get; set; }
         public string Category { get; set; }
