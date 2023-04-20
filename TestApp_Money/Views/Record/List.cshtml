@@ -1,0 +1,21 @@
+﻿@model RecordListViewModel
+
+<div>
+    <table class="table table-striped">
+    <tr>
+        <td>Категория</td>
+        <td>Значение</td>
+        <td>Дата</td>
+        <td>Комментарий</td>
+    </tr>
+    @foreach (var record in Model.Records)
+    {
+    <tr>
+        <td>@record.Category</td>
+        <td>@record.Value</td>
+        <td>@record.CreatedDate</td>
+        <td>@record.Description</td>
+    </tr>
+    }
+    </table>
+</div>
